@@ -17,6 +17,25 @@
 
 package org.lessons.java.shop;
 
+import java.util.Random;
+
 public class Prodotto {
 
+    // caratteristiche
+    int codice; // da randomizzare
+    String nome;
+    String descrizione;
+    float prezzo;
+    float iva;
+
+    // costruttore
+    public Prodotto(int codice, String nome, String descrizione, float prezzo, float iva) {
+        this.codice = codice;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.prezzo = prezzo;
+        this.iva = iva;
+    }
+
+    // metodi
 }
