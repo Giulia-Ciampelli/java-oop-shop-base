@@ -30,7 +30,9 @@ public class Prodotto {
 
     // costruttore
     public Prodotto(int codice, String nome, String descrizione, float prezzo, float iva) {
-        this.codice = codice;
+        Random nuovoCodice = new Random();
+
+        this.codice = nuovoCodice.nextInt(10000); // in questo modo però dà sempre un nuovo codice
         this.nome = nome;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
