@@ -39,6 +39,10 @@ public class Prodotto {
         return result;
     }
 
+    public String getDescription() {
+        return this.descrizione;
+    }
+
     public String getPrice() {
         String price = String.format("%.2f$", this.prezzo); // continua a dare ? nel terminale, anche con locale, formattazione letterale e forzatura di codice Unicode
         // problema con terminale bash e UTF-8
