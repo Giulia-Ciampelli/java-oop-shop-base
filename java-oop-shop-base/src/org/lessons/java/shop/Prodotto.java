@@ -29,14 +29,13 @@ public class Prodotto {
     float iva;
 
     // costruttore
-    public Prodotto(int codice, String nome, String descrizione, float prezzo, float iva) {
+    public Prodotto(String nome, String descrizione, float prezzo) {
         Random nuovoCodice = new Random();
 
         this.codice = nuovoCodice.nextInt(10000); // in questo modo però dà sempre un nuovo codice
         this.nome = nome;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
-        this.iva = iva;
     }
 
     // metodi
@@ -54,15 +53,14 @@ public class Prodotto {
     }
 
     public String getPrice() {
-        String price = String.format("%.2f $", this.prezzo); // continua a dare ? nel terminale, anche con locale, formattazione letterale e codice Unicode
-        // problema con terminale e UTF-8
-        // ho provato di tutto e niente, metto il dollaro
+        String price = String.format("%.2f$", this.prezzo); // continua a dare ? nel terminale, anche con locale, formattazione letterale e forzatura di codice Unicode
+        // problema con terminale bash e UTF-8
         return price;
     }
 
     public String getIVAPrice() {
         float IVAPrice = (float) (this.prezzo + (this.prezzo * 0.2));
-        String formatIVAPrice = String.format("%.2f $", IVAPrice);
+        String formatIVAPrice = String.format("%.2f$", IVAPrice);
         return formatIVAPrice;
     }
 }
