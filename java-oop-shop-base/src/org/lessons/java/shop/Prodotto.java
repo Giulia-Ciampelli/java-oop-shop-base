@@ -17,6 +17,7 @@
 
 package org.lessons.java.shop;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class Prodotto {
@@ -40,4 +41,22 @@ public class Prodotto {
     }
 
     // metodi
+    public String getName() {
+        return this.nome;
+    }
+
+    public int getCode() {
+        return this.codice;
+    }
+
+    public String getExtendedName() {
+        String result = this.nome + "-" + this.codice;
+        return result;
+    }
+
+    public String getPrice() {
+        String price = String.format(Locale.ITALY, "%.2f €", this.prezzo); // continua a dare ? nel terminale, anche con locale, formattazione letterale e codice Unicode
+        // problema con terminale e UTF-8
+        return price;
+    }
 }
