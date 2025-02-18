@@ -1,23 +1,8 @@
-// Nel progetto java-oop-shop, package org.lessons.java.shop, creare la classe Prodotto che gestisce i prodotti dello shop. 
-
-// Un prodotto è caratterizzato da:
-// - codice (numero intero)
-// - nome
-// - descrizione
-// - prezzo
-// - iva
-
-// Usate opportunamente costruttori, attributi ed eventuali altri metodi di “utilità” per fare in modo che:
-// - alla creazione di un nuovo prodotto il codice sia valorizzato con un numero random
-// - il prodotto esponga un metodo per avere il prezzo base 
-// - il prodotto esponga un metodo per avere il prezzo comprensivo di iva
-// - il prodotto esponga un metodo per avere il nome esteso, ottenuto concatenando codice-nome
-
-// Nello stesso package aggiungete una classe Main con metodo main nella quale testate tutte le funzionalità della classe Prodotto.
-
 package org.lessons.java.shop;
 
 import java.util.Random;
+
+// consigliato BigDecimal
 
 public class Prodotto {
 
@@ -29,13 +14,14 @@ public class Prodotto {
     float iva;
 
     // costruttore
-    public Prodotto(String nome, String descrizione, float prezzo) {
+    public Prodotto(String nome, String descrizione, float prezzo, float iva) {
         Random nuovoCodice = new Random();
 
         this.codice = nuovoCodice.nextInt(10000); // in questo modo però dà sempre un nuovo codice
         this.nome = nome;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
+        this.iva = iva;
     }
 
     // metodi
@@ -47,6 +33,7 @@ public class Prodotto {
         return this.codice;
     }
 
+    // RICORDA: devi controllare che esistano le istanze!
     public String getExtendedName() {
         String result = this.nome + "-" + this.codice;
         return result;
@@ -59,7 +46,7 @@ public class Prodotto {
     }
 
     public String getIVAPrice() {
-        float IVAPrice = (float) (this.prezzo + (this.prezzo * 0.2));
+        float IVAPrice = (float) (this.prezzo + (this.prezzo * this.iva));
         String formatIVAPrice = String.format("%.2f$", IVAPrice);
         return formatIVAPrice;
     }
