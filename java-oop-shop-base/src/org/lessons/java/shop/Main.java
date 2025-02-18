@@ -11,6 +11,7 @@ public class Main {
         System.out.println(shampoo.getCode());
         System.out.println(shampoo.getExtendedName());
         System.out.println(shampoo.getPrice());
+        System.out.println(shampoo.getIVAPrice());
 
         // tutti i miei terminali si rifiutano sistematicamente di mostrare €, spero solo che il resto funzioni
     }

@@ -59,4 +59,10 @@ public class Prodotto {
         // ho provato di tutto e niente, metto il dollaro
         return price;
     }
+
+    public String getIVAPrice() {
+        float IVAPrice = (float) (this.prezzo + (this.prezzo * 0.2));
+        String formatIVAPrice = String.format("%.2f $", IVAPrice);
+        return formatIVAPrice;
+    }
 }
