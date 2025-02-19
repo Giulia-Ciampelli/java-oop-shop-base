@@ -1,5 +1,11 @@
+// Usate opportunamente i livelli di accesso (public, private), i costruttori, i metodi getter e setter ed eventuali altri metodi di "utilità" per fare in modo che:
+// - esistano almeno due costruttori diversi
+// - il codice prodotto sia accessibile solo in lettura
+// - gli altri attributi siano accessibili sia in lettura che in scrittura
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 // consigliato BigDecimal
@@ -7,19 +13,39 @@ import java.util.Random;
 public class Prodotto {
 
     // caratteristiche
-    int codice; // da randomizzare
-    String nome;
-    String descrizione;
-    float prezzo;
-    float iva;
+    private int codice; // da randomizzare
+    private String nome;
+    private String descrizione;
+    private BigDecimal prezzo;
+    private BigDecimal iva;
 
-    // costruttore
-    public Prodotto(String nome, String descrizione, float prezzo, float iva) {
+    // costruttore con tutte le caratteristiche
+    public Prodotto(String nome, String descrizione, BigDecimal prezzo, BigDecimal iva) {
         Random nuovoCodice = new Random();
 
-        this.codice = nuovoCodice.nextInt(10000); // in questo modo però dà sempre un nuovo codice
+        this.codice = nuovoCodice.nextInt(100000); // in questo modo però dà sempre un nuovo codice
         this.nome = nome;
         this.descrizione = descrizione;
+        this.prezzo = prezzo;
+        this.iva = iva;
+    }
+
+    // costruttore prodotto senza IVA
+    public Prodotto(String nome, String descrizione, BigDecimal prezzo) {
+        Random nuovoCodice = new Random();
+
+        this.codice = nuovoCodice.nextInt(1000);
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.prezzo = prezzo;
+    }
+
+    // costruttore senza descrizione
+    public Prodotto(String nome, BigDecimal prezzo, BigDecimal iva) {
+        Random nuovoCodice = new Random();
+
+        this.codice = nuovoCodice.nextInt(100000);
+        this.nome = nome;
         this.prezzo = prezzo;
         this.iva = iva;
     }
@@ -27,6 +53,12 @@ public class Prodotto {
     // metodi
     public String getName() {
         return this.nome;
+    }
+
+    public void setName(String nome) {
+        if (nome != null) {
+            this.nome = nome;
+        }
     }
 
     public int getCode() {
@@ -43,15 +75,31 @@ public class Prodotto {
         return this.descrizione;
     }
 
-    public String getPrice() {
-        String price = String.format("%.2f$", this.prezzo); // continua a dare ? nel terminale, anche con locale, formattazione letterale e forzatura di codice Unicode
-        // problema con terminale bash e UTF-8
-        return price;
+    public void setDescription(String descrizione) {
+        if (descrizione != null) {
+            this.descrizione = descrizione;
+        }
     }
 
-    public String getIVAPrice() {
-        float IVAPrice = (float) (this.prezzo + (this.prezzo * this.iva));
-        String formatIVAPrice = String.format("%.2f$", IVAPrice);
-        return formatIVAPrice;
+    public BigDecimal getPrice() {
+        return prezzo.setScale(2, RoundingMode.DOWN);
+    }
+
+    public void setPrice(BigDecimal prezzo) {
+        this.prezzo = prezzo; // serve un modo diverso perchè non si usano gli operatori nello stesso modo
+    }
+
+    public void setIva(BigDecimal iva) {
+        this.iva = iva;
+    }
+
+    // ecco perchè è consigliato BigDecimal
+    public BigDecimal getIVAPrice() {
+        if (iva != null) {
+            BigDecimal IVAPrice = (this.prezzo.add(this.prezzo.multiply(iva)));
+            return IVAPrice.setScale(2, RoundingMode.DOWN);
+        } else {
+            return prezzo.setScale(2, RoundingMode.DOWN);
+        }
     }
 }
